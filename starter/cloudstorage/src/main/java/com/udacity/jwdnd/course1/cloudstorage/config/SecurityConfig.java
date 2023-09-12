@@ -1,21 +1,15 @@
 package com.udacity.jwdnd.course1.cloudstorage.config;
 
 
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import java.io.IOException;
 
 /**
  * Security config class, configures logins, signups and permissions.
@@ -24,6 +18,13 @@ import java.io.IOException;
 @EnableWebSecurity
 @EnableWebMvc
 public class SecurityConfig {
+    /**
+     * Filter chain security filter chain.
+     *
+     * @param http the http
+     * @return the security filter chain
+     * @throws Exception the exception
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //Permit any request to /login and /signup without need for authentication.
@@ -47,7 +48,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout").permitAll()
                 )
 
-        //Allow only authorized (logged in) users to /home and /result
+        //Allow only authorized users to /home and /result
                 .authorizeHttpRequests((authz) -> authz
                 .requestMatchers(
                         new AntPathRequestMatcher("/home"),
@@ -57,8 +58,14 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Web security customizer web security customizer.
+     *
+     * @return the web security customizer
+     */
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(
+                "/static/**",
                 "/js/**",
                 "/css/**"
         );

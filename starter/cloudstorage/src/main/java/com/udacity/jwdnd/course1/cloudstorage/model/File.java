@@ -14,11 +14,13 @@ public class File {
     private Blob fileData;
 
     /**
-     * @param fileId Auto generated primary key.
-     * @param fileName File Name.
+     * Instantiates a new File.
+     *
+     * @param fileId      Auto generated primary key.
+     * @param fileName    File Name.
      * @param contentType File extension (.jpg, .txt etc..).
-     * @param fileSize File size in Kilo Bytes.
-     * @param userId ID of file owner (FK).
+     * @param fileSize    File size in Kilo Bytes.
+     * @param userId      ID of file owner (FK).
      */
     public File(Integer fileId, String fileName, String contentType, String fileSize, Integer userId) {
         this.fileId = fileId;
@@ -28,50 +30,110 @@ public class File {
         this.userId = userId;
     }
 
+    /**
+     * Gets file id.
+     *
+     * @return the file id
+     */
     public Integer getFileId() {
         return fileId;
     }
 
+    /**
+     * Sets file id.
+     *
+     * @param fileId the file id
+     */
     public void setFileId(Integer fileId) {
         this.fileId = fileId;
     }
 
+    /**
+     * Gets file name.
+     *
+     * @return the file name
+     */
     public String getFileName() {
         return fileName;
     }
 
+    /**
+     * Sets file name.
+     *
+     * @param fileName the file name
+     */
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * Gets content type.
+     *
+     * @return the content type
+     */
     public String getContentType() {
         return contentType;
     }
 
+    /**
+     * Sets content type.
+     *
+     * @param contentType the content type
+     */
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
 
+    /**
+     * Gets file size.
+     *
+     * @return the file size
+     */
     public String getFileSize() {
         return fileSize;
     }
 
+    /**
+     * Sets file size.
+     *
+     * @param fileSize the file size
+     */
     public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
     }
 
+    /**
+     * Gets user id.
+     *
+     * @return the user id
+     */
     public Integer getUserId() {
         return userId;
     }
 
+    /**
+     * Sets user id.
+     *
+     * @param userId the user id
+     */
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
+    /**
+     * Gets file data.
+     *
+     * @return the file data
+     */
     public Blob getFileData() {
         return fileData;
     }
 
+    /**
+     * Sets file data.
+     *
+     * @param fileData the file data
+     */
     public void setFileData(Blob fileData) {
         this.fileData = fileData;
     }

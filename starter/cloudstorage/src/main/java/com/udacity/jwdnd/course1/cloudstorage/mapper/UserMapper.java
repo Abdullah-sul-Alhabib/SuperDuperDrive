@@ -6,9 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+/**
+ * The interface User mapper.
+ */
 @Mapper
 public interface UserMapper {
     /**
+     * Gets user.
      *
      * @param username username.
      * @return User object tied to provided username.
@@ -17,6 +21,7 @@ public interface UserMapper {
     User getUser(String username);
 
     /**
+     * Insert int.
      *
      * @param user user object to insert.
      * @return newly generated userId.

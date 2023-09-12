@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
-
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/static/css/bootstrap.min.css}">
+<!--        <link href="/static/css/bootstrap.min.css" rel="stylesheet">-->
         <title>Home</title>
     </head>
     <body class="p-3 mb-2 bg-light text-black">
@@ -39,20 +39,23 @@
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class="table table-striped" id="fileTable">
+                            <table class="table table-striped" id="fileTable" th:object="${storedFiles}">
                                 <thead>
-                                    <tr>
+                                    <tr th:if="${storedFiles != null}">
                                         <th style="width: 20%" scope="col"></th>
                                         <th style="width: 80%" scope="col">File Name</th>
                                     </tr>
+                                    <tr th:if="${storedFiles == null}">
+                                        <th style="width: 100%" scope="col">No files exist.</th>
+                                    </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
+                                <tbody th:if="${storedFiles != null}">
+                                <tr th:each="f:${storedFiles}">
+                                    <td th:if="${storedFiles != null}">
                                         <a target="_blank" class="btn btn-success">View</a>
+                                        <a target="_blank" class="btn btn-success">Download</a>
                                         <a  class="btn btn-danger">Delete</a>
                                     </td>
-                                    <th scope="row">ExampleFile.txt</th>
                                 </tr>
                                 </tbody>
                             </table>

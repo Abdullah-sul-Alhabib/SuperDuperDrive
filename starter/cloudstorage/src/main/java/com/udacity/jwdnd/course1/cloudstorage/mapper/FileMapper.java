@@ -10,17 +10,19 @@ import java.sql.Blob;
 import java.util.List;
 
 /**
- *     fileId INT PRIMARY KEY auto_increment,
- *     filename VARCHAR,
- *     contenttype VARCHAR,
- *     filesize VARCHAR,
- *     userid INT,
- *     filedata BLOB,
- *     foreign key (userid) references USERS(userid)
+ * fileId INT PRIMARY KEY auto_increment,
+ * filename VARCHAR,
+ * contenttype VARCHAR,
+ * filesize VARCHAR,
+ * userid INT,
+ * filedata BLOB,
+ * foreign key (userid) references USERS(userid)
  */
 @Mapper
 public interface FileMapper {
     /**
+     * Gets file info.
+     *
      * @param userid user ID.
      * @return info for ALL files uploaded by user, without their content, for that refer to {@code getFileData}.
      */
@@ -28,6 +30,7 @@ public interface FileMapper {
     List<File> getFileInfo(Integer userid);
 
     /**
+     * Gets file data.
      *
      * @param fileId file ID
      * @return file content as java.sql.blob object.
@@ -36,6 +39,7 @@ public interface FileMapper {
     Blob getFileData(Integer fileId);
 
     /**
+     * Insert int.
      *
      * @param file file to insert.
      * @return newly generayed fileid.

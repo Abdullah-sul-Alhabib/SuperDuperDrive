@@ -14,6 +14,8 @@ import java.util.List;
 @Mapper
 public interface CredentialMapper {
     /**
+     * Gets credentials.
+     *
      * @param credintialid The ID for the specific credential to retrieve.
      * @return credential object tied with provided ID.
      */
@@ -21,6 +23,7 @@ public interface CredentialMapper {
     Credential getCredentials(Integer credintialid);
 
     /**
+     * Gets all credentials.
      *
      * @param userid ID of the user to get credentials for.
      * @return all credentials tied with provided user.
@@ -29,6 +32,7 @@ public interface CredentialMapper {
     List<Credential> getAllCredentials(Integer userid);
 
     /**
+     * Insert credentials int.
      *
      * @param credential credential object to insert into DB.
      * @return The newly created credential ID.

@@ -4,9 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * The type Login controller.
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+    /**
+     * Login view get mapping.
+     *
+     * @return login
+     */
     @GetMapping
     public String loginView(){
         return "login";

@@ -4,8 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" type="text/css" media="all"
-              href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/static/css/bootstrap.min.css}">
         <title>Home</title>
     </head>
     <body class="p-3 mb-2 bg-light text-black">
@@ -39,20 +38,16 @@
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class="table table-striped" id="fileTable" th:object="${storedFiles}">
+                            <table th:if="${storedFiles != null}" class="table table-striped" id="fileTable" th:object="${storedFiles}">
                                 <thead>
-                                    <tr th:if="${storedFiles != null}">
+                                    <tr >
                                         <th style="width: 20%" scope="col"></th>
                                         <th style="width: 80%" scope="col">File Name</th>
                                     </tr>
-                                    <tr th:if="${storedFiles == null}">
-                                        <th style="width: 100%" scope="col">No files exist.</th>
-                                    </tr>
                                 </thead>
-                                <tbody th:if="${storedFiles != null}">
+                                <tbody>
                                 <tr th:each="f:${storedFiles}">
-                                    <td th:if="${storedFiles != null}">
-                                        <a target="_blank" class="btn btn-success">View</a>
+                                    <td>
                                         <a target="_blank" class="btn btn-success">Download</a>
                                         <a  class="btn btn-danger">Delete</a>
                                     </td>

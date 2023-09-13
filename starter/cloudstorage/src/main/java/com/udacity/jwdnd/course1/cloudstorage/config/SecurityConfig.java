@@ -25,6 +25,7 @@ public class SecurityConfig {
      * @return the security filter chain
      * @throws Exception the exception
      */
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //Permit any request to /login and /signup without need for authentication.
@@ -32,7 +33,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(
                                 new AntPathRequestMatcher("/login"),
-                                new AntPathRequestMatcher("/signup")).permitAll()
+                                new AntPathRequestMatcher("/signup")
+                                ).permitAll()
                 )
 
         //Assign /login as the login page, which means any unauthorized request will be redirected to this one,
@@ -54,6 +56,13 @@ public class SecurityConfig {
                         new AntPathRequestMatcher("/home"),
                         new AntPathRequestMatcher("/result")).authenticated()
                 );
+        http
+                .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers(
+                                new AntPathRequestMatcher("/static/**"),
+                                new AntPathRequestMatcher("/css/**"),
+                                new AntPathRequestMatcher("/jss/**")
+                        ).permitAll().anyRequest().permitAll());
 
         return http.build();
     }
@@ -63,11 +72,14 @@ public class SecurityConfig {
      *
      * @return the web security customizer
      */
+    @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers(
-                "/static/**",
-                "/js/**",
-                "/css/**"
+        return (web) -> web.ignoring().requestMatchers(
+                //I've put them inside AntPathRequestMatcher to resolve error
+                new AntPathRequestMatcher("../static/**"),
+                new AntPathRequestMatcher("/static/**"),
+                new AntPathRequestMatcher("/js/**"),
+                new AntPathRequestMatcher("/css/**")
         );
     }
 }

@@ -1,6 +1,10 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
+import org.apache.ibatis.javassist.bytecode.ByteArray;
+
+import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
+import java.sql.SQLException;
 
 /**
  * File model to match the FILES table in the schema.
@@ -9,7 +13,7 @@ public class File {
     private Integer fileId;
     private String fileName;
     private String contentType;
-    private String fileSize;
+    private long fileSize;
     private Integer userId;
     private Blob fileData;
 
@@ -22,7 +26,9 @@ public class File {
      * @param fileSize    File size in Kilo Bytes.
      * @param userId      ID of file owner (FK).
      */
-    public File(Integer fileId, String fileName, String contentType, String fileSize, Integer userId) {
+    public File(Integer fileId, String fileName, String contentType,
+                long fileSize, Integer userId) {
+        //This should be done in a factory due to fileData sometimes not being there.
         this.fileId = fileId;
         this.fileName = fileName;
         this.contentType = contentType;
@@ -89,7 +95,7 @@ public class File {
      *
      * @return the file size
      */
-    public String getFileSize() {
+    public long getFileSize() {
         return fileSize;
     }
 
@@ -98,7 +104,7 @@ public class File {
      *
      * @param fileSize the file size
      */
-    public void setFileSize(String fileSize) {
+    public void setFileSize(long fileSize) {
         this.fileSize = fileSize;
     }
 

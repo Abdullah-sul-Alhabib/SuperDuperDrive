@@ -1,10 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.Blob;
 import java.util.List;
@@ -26,7 +23,7 @@ public interface FileMapper {
      * @param userid user ID.
      * @return info for ALL files uploaded by user, without their content, for that refer to {@code getFileData}.
      */
-    @Select("SELECT fileId, filename, contenttype, filesize FROM FILES WHERE userid = #{userid}")
+    @Select("SELECT * FROM FILES WHERE userid = #{userid}")
     List<File> getFileInfo(Integer userid);
 
     /**
@@ -39,13 +36,17 @@ public interface FileMapper {
     Blob getFileData(Integer fileId);
 
     /**
-     * Insert int.
+     * Insert file, return fileId.
      *
      * @param file file to insert.
-     * @return newly generayed fileid.
+     * @return newly generated fileid.
      */
-    @Insert("INSERT INTO FILES ( filename, contenttype, filesize, userid, filedata) VALUES( #{salt}, #{password}, #{firstName}, #{lastName})")
+    @Insert("INSERT INTO FILES ( filename, contenttype, filesize, userid) VALUES( #{fileName}, #{contentType}, #{fileSize}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "fileId")
     int insert(File file);
+
+    @Update("UPDATE FILES SET fileData= #{fileData} WHERE fileId = #{fileId}")
+    int insertFile(Blob fileData, int fileId);
+
 
 }

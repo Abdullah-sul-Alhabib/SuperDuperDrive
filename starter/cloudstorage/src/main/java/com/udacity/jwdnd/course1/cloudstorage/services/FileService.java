@@ -3,8 +3,12 @@ package com.udacity.jwdnd.course1.cloudstorage.services;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.FileMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.IOException;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,4 +45,16 @@ public class FileService {
         fileList = fileMapper.getFileInfo(userId);
     }
 
+    public void uploadFile(MultipartFile file, int userId) throws SQLException, IOException {
+        File fileHolder = fileFactory(file,userId);
+        fileMapper.insert(fileHolder);
+        fileMapper.insertFile(fileHolder.getFileData(),fileHolder.getFileId());
+    }
+
+    public File fileFactory(MultipartFile file, int userId) throws IOException, SQLException {
+        Blob blob = new SerialBlob(file.getBytes());
+        File file1 = new File(null, file.getOriginalFilename(), file.getContentType(),file.getSize(),userId);
+        file1.setFileData(blob);
+        return file1;
+    }
 }

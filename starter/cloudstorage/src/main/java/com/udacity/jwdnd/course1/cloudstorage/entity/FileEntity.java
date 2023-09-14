@@ -1,8 +1,8 @@
-package com.udacity.jwdnd.course1.cloudstorage.model;
+package com.udacity.jwdnd.course1.cloudstorage.entity;
 
 import java.util.List;
 
-public class FileForm {
+public class FileEntity {
     private int userId;
     private List<String> fileNames;
 

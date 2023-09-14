@@ -22,23 +22,23 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                        <form action="#" enctype="multipart/form-data" method="POST">
+                        <form action="#" enctype="multipart/form-data" method="POST" th:action="@{/home}" >
                             <div class="container">
                                 <div class="row" style="margin: 1em;">
                                     <div class="col-sm-2">
                                         <label for="fileUpload">Upload a New File:</label>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="file" class="form-control-file" id="fileUpload" name="fileUpload">
+                                        <input type="file" class="form-control-file" id="fileUpload" name="fileUpload" >
                                     </div>
                                     <div class="col-sm-4">
-                                        <button type="submit" class="btn btn-dark" id="uploadButton">Upload</button>
+                                        <button type="submit" class="btn btn-dark" id="uploadButton" >Upload</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table th:if="${storedFiles != null}" class="table table-striped" id="fileTable" th:object="${storedFiles}">
+                            <table th:unless="${storedFiles == null}" class="table table-striped" id="fileTable" th:object="${storedFiles}">
                                 <thead>
                                     <tr >
                                         <th style="width: 20%" scope="col"></th>
@@ -46,11 +46,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="f:${storedFiles}">
+                                <tr th:each="f:${storedFiles.fileNames}">
                                     <td>
                                         <a target="_blank" class="btn btn-success">Download</a>
                                         <a  class="btn btn-danger">Delete</a>
                                     </td>
+                                    <td th:text="${f}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -182,9 +183,9 @@
             </div>
         </div>
 
-        <script th:src="@{/js/jquery-slim.min.js}"></script>
-        <script th:src="@{/js/popper.min.js}"></script>
-        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:href="@{/js/jquery-slim.min.js}"></script>
+        <script th:href="@{/js/popper.min.js}"></script>
+        <script th:href="@{/js/bootstrap.min.js}"></script>
 
         <!--For opening the note modal-->
         <script type="text/javascript">

@@ -53,7 +53,7 @@ public class SecurityConfig {
         //Allow only authorized users to /home and /result
                 .authorizeHttpRequests((authz) -> authz
                 .requestMatchers(
-                        new AntPathRequestMatcher("/home"),
+                        new AntPathRequestMatcher("/home/**"),
                         new AntPathRequestMatcher("/result")).authenticated()
                 );
 
@@ -71,6 +71,7 @@ public class SecurityConfig {
                 //I've put them inside AntPathRequestMatcher to resolve error
                 new AntPathRequestMatcher("/static/**"),
                 new AntPathRequestMatcher("/js/**"),
+                new AntPathRequestMatcher("/h2-console/**"),
                 new AntPathRequestMatcher("/css/**")
         );
     }

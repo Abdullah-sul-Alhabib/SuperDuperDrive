@@ -1,25 +1,27 @@
 package com.udacity.jwdnd.course1.cloudstorage.entity;
 
+import com.udacity.jwdnd.course1.cloudstorage.model.File;
+
 import java.util.List;
 
 public class FileEntity {
-    private int userId;
-    private List<String> fileNames;
+    private int fileId;
+    private String fileName;
 
     public int getUserId() {
-        return userId;
+        return fileId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(int fileId) {
+        this.fileId = fileId;
     }
 
-    public List<String> getFileNames() {
-        return fileNames;
+    public String getFileNames() {
+        return fileName;
     }
 
-    public void setFileNames(List<String> fileNames) {
-        this.fileNames = fileNames;
+    public void setFileNames(String fileName) {
+        this.fileName = fileName;
     }
 
 }

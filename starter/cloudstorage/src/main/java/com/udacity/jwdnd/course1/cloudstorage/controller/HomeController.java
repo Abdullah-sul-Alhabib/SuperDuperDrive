@@ -2,6 +2,7 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 
 import com.udacity.jwdnd.course1.cloudstorage.entity.FileEntity;
+import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * controller for {@linkplain /home} page.
@@ -41,7 +43,7 @@ public class HomeController {
      * @return home
      */
     @GetMapping
-    public String getHome(@ModelAttribute("storedFiles") FileEntity fileEntity, Model model){
+    public String getHome(@ModelAttribute("storedFiles") List<File> fileList, Model model){
         //get the current logged-in user,
         // this project does not contain cache so this is suboptimal,
         // because every request to home will send an SQL query.
@@ -50,16 +52,17 @@ public class HomeController {
                 .getContext()
                 .getAuthentication()
                         .getName());
-        fileEntity.setUserId(currentUser.getUserId());
         //return list of file info uploaded by the user
-        fileEntity.setFileNames(fileService.getFileNames(currentUser.getUserId()));
-        // @// TODO Tie fileNames to their fileId.
-        model.addAttribute("storedFiles",fileEntity);
+        fileList.addAll(fileService.getFileList(currentUser.getUserId()));
+        model.addAttribute("storedFiles",fileList);
         //If file list is not empty
-        if (!fileEntity.getFileNames().isEmpty())
+        if (!fileList.isEmpty())
         {
             //download functionality for the download button
         }
+
+        //Logic for delete button
+
         //fill the credential tab
 
         //return note list

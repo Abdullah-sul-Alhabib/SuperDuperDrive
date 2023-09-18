@@ -46,12 +46,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="f:${storedFiles.fileNames}">
+                                <tr th:each="f:${storedFiles}">
                                     <td>
-                                        <a target="_blank" class="btn btn-success">Download</a>
+                                        <a target="_blank" class="btn btn-success" th:href="@{|/home/download?fileid=${f.fileId}|}">Download</a>
                                         <a  class="btn btn-danger">Delete</a>
                                     </td>
-                                    <td th:text="${f}"></td>
+                                    <td th:text="${f.fileName}"></td>
                                 </tr>
                                 </tbody>
                             </table>

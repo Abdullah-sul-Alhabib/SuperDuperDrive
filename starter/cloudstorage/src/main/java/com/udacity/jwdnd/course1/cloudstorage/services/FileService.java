@@ -9,8 +9,8 @@ import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * File handler service.
@@ -32,13 +32,14 @@ public class FileService {
         return fileMapper.getFileData(fileId);
     }
 
-    public List<String> getFileNames(int userId){
-        setFileList(userId);
-        //Initiate placeholder for list of file names
-        List <String> fileNames = new ArrayList<>();
-        fileList.forEach(f -> fileNames.add(f.getFileName()));
-        return fileNames;
+    public List<File> getFileList(int userId){
+        AtomicInteger uId = new AtomicInteger();
+        this.fileList.stream().peek(f -> uId.set(f.getUserId()));
+        if (uId.get() == userId){
+            setFileList(userId);
+        }
 
+        return fileList;
     }
 
     public void setFileList(int userId) {

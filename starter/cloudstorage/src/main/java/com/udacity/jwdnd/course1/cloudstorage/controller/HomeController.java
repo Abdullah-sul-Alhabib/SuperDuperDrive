@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class HomeController {
      * @return home
      */
     @GetMapping
-    public String getHome(@ModelAttribute("storedFiles") List<File> fileList, Model model){
+    public String getHome( Model model){
         //get the current logged-in user,
         // this project does not contain cache so this is suboptimal,
         // because every request to home will send an SQL query.
@@ -53,7 +54,7 @@ public class HomeController {
                 .getAuthentication()
                         .getName());
         //return list of file info uploaded by the user
-        fileList.addAll(fileService.getFileList(currentUser.getUserId()));
+        List<File> fileList = new ArrayList<>(fileService.getFileList(currentUser.getUserId()));
         model.addAttribute("storedFiles",fileList);
         //If file list is not empty
         if (!fileList.isEmpty())

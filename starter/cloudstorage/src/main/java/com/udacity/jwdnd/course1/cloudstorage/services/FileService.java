@@ -33,12 +33,21 @@ public class FileService {
     }
 
     public List<File> getFileList(int userId){
+        //if file list is empty (this means the server just started)
+        // then just set a new one and return it.
+        if (fileList == null || fileList.isEmpty()) {
+            setFileList(userId);
+            return fileList;
+        }
+        //if there is a file list already, ensure it is for the same user
         AtomicInteger uId = new AtomicInteger();
         this.fileList.stream().peek(f -> uId.set(f.getUserId()));
-        if (uId.get() == userId){
+        if (uId.get() == userId) {
+            return fileList;
+        }
+        else {
             setFileList(userId);
         }
-
         return fileList;
     }
 
@@ -48,8 +57,8 @@ public class FileService {
 
     public void uploadFile(MultipartFile file, int userId) throws SQLException, IOException {
         File fileHolder = fileFactory(file,userId);
-        fileMapper.insert(fileHolder);
-        fileMapper.insertFile(fileHolder.getFileData(),fileHolder.getFileId());
+        int fileId = fileMapper.insert(fileHolder);
+        fileMapper.insertFile(fileHolder.getFileData(),fileId);
     }
 
     public File fileFactory(MultipartFile file, int userId) throws IOException, SQLException {

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
@@ -54,6 +55,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                 .requestMatchers(
                         new AntPathRequestMatcher("/home/**"),
+                        new AntPathRequestMatcher("home/download"),
+                        new RegexRequestMatcher("\\?fileId=\\d",HttpMethod.GET.name()),
                         new AntPathRequestMatcher("/result")).authenticated()
                 );
 

@@ -15,6 +15,7 @@ public class File {
     private String contentType;
     private long fileSize;
     private Integer userId;
+    //File date isn't in the constructor because of error creating beans with it there.
     private Blob fileData;
 
     /**
@@ -28,7 +29,7 @@ public class File {
      */
     public File(Integer fileId, String fileName, String contentType,
                 long fileSize, Integer userId) {
-        //This should be done in a factory due to fileData sometimes not being there.
+        //Optimally this should be done in a factory due to Blob not being there.
         this.fileId = fileId;
         this.fileName = fileName;
         this.contentType = contentType;

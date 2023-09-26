@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SuperDuperDrive.iml" filepath="$PROJECT_DIR$/.idea/SuperDuperDrive.iml" />
-      <module fileurl="file://$PROJECT_DIR$/starter/cloudstorage/cloudstorage.iml" filepath="$PROJECT_DIR$/starter/cloudstorage/cloudstorage.iml" />
     </modules>
   </component>
 </project>

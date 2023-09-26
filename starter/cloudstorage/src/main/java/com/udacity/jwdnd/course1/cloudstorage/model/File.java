@@ -27,14 +27,13 @@ public class File {
      * @param fileSize    File size in Kilo Bytes.
      * @param userId      ID of file owner (FK).
      */
-    public File(Integer fileId, String fileName, String contentType,
-                long fileSize, Integer userId) {
-        //Optimally this should be done in a factory due to Blob not being there.
+    public File(Integer fileId, String fileName, String contentType, long fileSize, Integer userId, Blob fileData) {
         this.fileId = fileId;
         this.fileName = fileName;
         this.contentType = contentType;
         this.fileSize = fileSize;
         this.userId = userId;
+        this.fileData = fileData;
     }
 
     /**

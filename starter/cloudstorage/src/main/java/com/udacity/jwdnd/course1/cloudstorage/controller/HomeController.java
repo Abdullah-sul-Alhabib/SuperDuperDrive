@@ -1,6 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 
+import com.udacity.jwdnd.course1.cloudstorage.entity.FileInfoEntity;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
@@ -53,13 +54,8 @@ public class HomeController {
                 .getAuthentication()
                         .getName());
         //return list of file info uploaded by the user
-        List<File> fileList = new ArrayList<>(fileService.getFileList(currentUser.getUserId()));
+        List<FileInfoEntity> fileList = new ArrayList<>(fileService.getFileList(currentUser.getUserId()));
         model.addAttribute("storedFiles",fileList);
-        //If file list is not empty
-        if (!fileList.isEmpty())
-        {
-            //download functionality for the download button
-        }
 
         //Logic for delete button
 
@@ -79,14 +75,16 @@ public class HomeController {
                         .getContext()
                         .getAuthentication()
                         .getName());
+
+        //TODO: Try/catch to get upload failure
         fileService.uploadFile(uploadedFile, currentUser.getUserId());
         //receive notes and tie them to user
 
         //receive credentials and tie them to user
 
         //if/else condition using isUploadSuccessful flag,
-        // for upload successes, redirect to result with the proper result variable,
-        // else return them back to home
-        return "home";
+        // then redirect to result with the proper result parameters,
+
+        return "redirect:/result";
     }
 }

@@ -38,6 +38,8 @@ public class DownloadController {
     public ResponseEntity<InputStreamResource> downloadFile(@RequestParam("fileid") int fileId) throws SQLException, IOException {
         File file = fileService.getFileById(fileId);
 
+        // @// TODO: validate that the file being accessed is uploaded by the same currently logged in user.
+
         ByteArrayResource fileBytes = new ByteArrayResource(file.getFileData().getBinaryStream().readAllBytes());
 
         HttpHeaders headers = new HttpHeaders();

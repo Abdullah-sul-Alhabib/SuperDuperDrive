@@ -1,6 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
 import com.udacity.jwdnd.course1.cloudstorage.entity.FileDataEntity;
+import com.udacity.jwdnd.course1.cloudstorage.entity.FileInfoEntity;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import org.apache.ibatis.annotations.*;
 
@@ -25,7 +26,7 @@ public interface FileMapper {
      * @return info for ALL files uploaded by user, without their content, for that refer to {@code getOneFileInfo}.
      */
     @Select("SELECT * FROM FILES WHERE userid = #{userid}")
-    List<File> getAllFilesFromUserId(Integer userid);
+    List<FileInfoEntity> getAllFilesFromUserId(Integer userid);
 
     /**
      * Gets file data.
@@ -47,7 +48,7 @@ public interface FileMapper {
      */
     @Insert("INSERT INTO FILES ( filename, contenttype, filesize, userid) VALUES( #{fileName}, #{contentType}, #{fileSize}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "fileId")
-    int insert(File file);
+    int insert(FileInfoEntity file);
 
     @Update("UPDATE FILES SET filedata= #{fileData} WHERE fileId = #{fileId}")
     void updateFileData(Blob fileData, int fileId);

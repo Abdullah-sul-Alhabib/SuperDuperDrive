@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage.controller;
+package com.udacity.jwdnd.course1.cloudstorage.controller.files;
 
 
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
@@ -24,11 +24,10 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 @Controller
-@RequestMapping("/home/download")
+@RequestMapping("/file/download")
 public class DownloadController {
     private FileService fileService;
 
-    // @// TODO Attach file type and original name
     public DownloadController(FileService fileService) {
         this.fileService = fileService;
     }

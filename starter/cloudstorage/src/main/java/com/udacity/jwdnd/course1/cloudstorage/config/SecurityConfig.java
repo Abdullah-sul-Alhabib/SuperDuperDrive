@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @Configuration
 @EnableWebSecurity
-@EnableWebMvc
 public class SecurityConfig {
     /**
      * Filter chain security filter chain.
@@ -55,9 +54,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                 .requestMatchers(
                         new AntPathRequestMatcher("/home/**"),
-                        new AntPathRequestMatcher("home/download"),
-                        new RegexRequestMatcher("\\?fileId=\\d",HttpMethod.GET.name()),
-                        new AntPathRequestMatcher("/result")).authenticated()
+                        new AntPathRequestMatcher("/result"),
+                        new AntPathRequestMatcher("/error"),
+                        new AntPathRequestMatcher("/file/**"),
+                        new AntPathRequestMatcher("/favicon.ico"),
+                        new RegexRequestMatcher("/home/download\\?fileId=[0-9]+",HttpMethod.GET.name()),
+                        new RegexRequestMatcher("/home#[A-Za-z]+-[A-Za-z]+", HttpMethod.GET.name()),
+                        new RegexRequestMatcher("/home/delete\\?fileId=[0-9]+",HttpMethod.GET.name()),
+                        new RegexRequestMatcher("/result\\?status=[0-9]+",HttpMethod.GET.name())
+                        ).authenticated()
                 );
 
         return http.build();

@@ -80,4 +80,9 @@ public class FileService {
     public FileDataEntity getFileDataFromMultipartFile(MultipartFile file, int userId) throws IOException, SQLException {
         return new FileDataEntity(new SerialBlob(file.getBytes()));
     }
+
+    public void deleteFile(int fileId){
+        // TODO: ensure the delete request is done by the owner of the file.
+        fileMapper.deleteFile(fileId);
+    }
 }

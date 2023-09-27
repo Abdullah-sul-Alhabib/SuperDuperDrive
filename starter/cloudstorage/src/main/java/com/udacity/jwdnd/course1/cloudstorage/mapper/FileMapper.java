@@ -53,5 +53,7 @@ public interface FileMapper {
     @Update("UPDATE FILES SET filedata= #{fileData} WHERE fileId = #{fileId}")
     void updateFileData(Blob fileData, int fileId);
 
+    @Delete("DELETE FROM FILES WHERE fileId = #{fileId}")
+    void deleteFile(int fileId);
 
 }

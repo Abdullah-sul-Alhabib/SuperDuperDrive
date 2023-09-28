@@ -22,7 +22,7 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                        <form action="#" enctype="multipart/form-data" method="POST" th:action="@{/home}" >
+                        <form action="#" enctype="multipart/form-data" method="POST" th:action="@{/file/upload}" >
                             <div class="container">
                                 <div class="row" style="margin: 1em;">
                                     <div class="col-sm-2">
@@ -72,13 +72,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="n: ${notes}">
+                                    <tr th:each="n: ${storedNotes}">
                                         <td>
                                             <button name = "edit" th:onclick="javascript:showNoteModal([[${n}]])" type="button" class="btn btn-success">Edit</button>
-                                            <a name = "delete" th:href="@{/notes/delete(id=${n.noteid})}" class="btn btn-danger">Delete</a>
+                                            <a name = "delete" th:href="@{|/note/delete?noteId=${n.noteId}|}" class="btn btn-danger">Delete</a>
                                         </td>
-                                        <th scope="row" th:text="${n.notetitle}"></th>
-                                        <td th:text="${n.notedescription}"></td>
+                                        <th scope="row" th:text="${n.noteTitle}"></th>
+                                        <td th:text="${n.noteDescription}"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -94,7 +94,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="#" method="POST" th:action="#{/notes}">
+                                        <form action="#" method="POST" th:action="@{/note}">
                                             <input type="hidden" name="noteId" id="note-id">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Title</label>
@@ -191,9 +191,9 @@
         <script type="text/javascript">
             // For opening the note modal
             function showNoteModal(note) {
-                $('#note-id').val(note && note.noteid ? note.noteid : 0);
-                $('#note-title').val(note && note.notetitle ? note.notetitle : '');
-                $('#note-description').val(note && note.notedescription ? note.notedescription : '');
+                $('#note-id').val(note && note.noteId ? note.noteId : 0);
+                $('#note-title').val(note && note.noteTitle ? note.noteTitle : '');
+                $('#note-description').val(note && note.noteDescription ? note.noteDescription : '');
                 $('#noteModal').modal('show');
             }
             // For opening the credentials modal

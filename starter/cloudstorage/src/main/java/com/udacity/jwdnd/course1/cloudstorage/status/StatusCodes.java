@@ -7,7 +7,9 @@ public enum StatusCodes {
     SUCCESS(0, "Operation successful"),
     DATABASE(1, "A database error has occurred."),
     DUPLICATE_FILE(2, "This file name already exists."),
-    UNAUTHORIZED(3,"File inaccessible");
+    UNAUTHORIZED(3,"File inaccessible"),
+    NOTE_CREATION_ERROR(4, "Error during creating note."),
+    NOTE_UPDATE_ERROR(5,"Errur during note update.");
 
     private static Map<Integer, StatusCodes> statusCodeByStatusNumber = new HashMap<>();
 

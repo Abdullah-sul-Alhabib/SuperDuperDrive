@@ -65,7 +65,7 @@ public class FileService {
         //call file factory to get type File instead of multiPartFile.
         FileInfoEntity fileInfoHolder = getFileInfoFromMultipartFile(file,userId);
         FileDataEntity fileDataHolder = getFileDataFromMultipartFile(file,userId);
-        //Insert the file into DB, the fileMapper insert will return the newly created fileId.
+        // TODO: insert does NOT return generated key value, make a new method to do that.
         int fileId = fileMapper.insert(fileInfoHolder);
         //Use fileId to upload the file separately,
         // this is done in a separate query in case we want to handle special logic for file uploading here.

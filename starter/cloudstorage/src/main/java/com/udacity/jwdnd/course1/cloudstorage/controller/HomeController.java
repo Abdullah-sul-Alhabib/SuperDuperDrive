@@ -3,6 +3,7 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.entity.FileInfoEntity;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
+import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
@@ -57,7 +58,9 @@ public class HomeController {
         List<FileInfoEntity> fileList = new ArrayList<>(fileService.getFileList(currentUser.getUserId()));
         model.addAttribute("storedFiles",fileList);
 
-        //Logic for delete button
+        //return list of notes uploaded by the user
+        List<Note> noteList= noteService.getNoteList(currentUser.getUserId());
+        model.addAttribute("storedNotes", noteList);
 
         //fill the credential tab
 
@@ -66,25 +69,4 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping
-    public String homePost(@RequestParam("fileUpload") MultipartFile uploadedFile, Model model) throws SQLException, IOException {
-        boolean isUploadSuccessful, isNoteSuccessful, isCredentialSuccessful = false;
-        //receive file uploads and tie them to user
-        User currentUser = userService.getUser(
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getName());
-
-        //TODO: Try/catch to get upload failure
-        fileService.uploadFile(uploadedFile, currentUser.getUserId());
-        //receive notes and tie them to user
-
-        //receive credentials and tie them to user
-
-        //if/else condition using isUploadSuccessful flag,
-        // then redirect to result with the proper result parameters,
-
-        return "redirect:/result";
-    }
 }

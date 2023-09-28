@@ -1,10 +1,9 @@
 package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 /**
  * The interface Note mapper.
@@ -18,7 +17,11 @@ public interface NoteMapper {
      * @return notes tied to the user.
      */
     @Select("SELECT * FROM NOTES WHERE userid = #{userid}")
-    Note getAllNotes(Integer userid);
+    List<Note> getAllNotes(Integer userid);
+
+
+    @Select("Select * FROM NOTES WHERE noteId = #{noteId}")
+    Note getOneNote(Integer noteId);
 
     /**
      * Insert note int.
@@ -26,7 +29,13 @@ public interface NoteMapper {
      * @param note Note object to insert.
      * @return newly generated noteId.
      */
-    @Insert("INSERT INTO NOTES (notetitle, notedescription, userid) VALUES(#{notetitle}, #{notedescription}, #{userid})")
-    @Options(useGeneratedKeys = true, keyProperty = "noteid")
-    int insertNote(Note note);
+    @Insert("INSERT INTO NOTES (notetitle, notedescription, userid) VALUES(#{noteTitle}, #{noteDescription}, #{userId})")
+    @Options(useGeneratedKeys = true, keyProperty = "noteId")
+    void insertNote(Note note);
+
+    @Update("UPDATE NOTES SET notetitle = #{noteTitle}, notedescription = #{noteDescription} WHERE noteid = #{noteId}")
+    void updateNote(Note note);
+
+    @Delete("DELETE FROM NOTES WHERE noteid = #{noteId}")
+    void deleteNote(Integer noteId);
 }

@@ -58,10 +58,11 @@ public class SecurityConfig {
                         new AntPathRequestMatcher("/error"),
                         new AntPathRequestMatcher("/file/**"),
                         new AntPathRequestMatcher("/favicon.ico"),
-                        new RegexRequestMatcher("/home/download\\?fileId=[0-9]+",HttpMethod.GET.name()),
-                        new RegexRequestMatcher("/home#[A-Za-z]+-[A-Za-z]+", HttpMethod.GET.name()),
-                        new RegexRequestMatcher("/home/delete\\?fileId=[0-9]+",HttpMethod.GET.name()),
-                        new RegexRequestMatcher("/result\\?status=[0-9]+",HttpMethod.GET.name())
+                        new AntPathRequestMatcher("/note/**")
+//                        new RegexRequestMatcher("/home/download\\?fileId=[0-9]+",HttpMethod.GET.name()),
+//                        new RegexRequestMatcher("/home#[A-Za-z]+-[A-Za-z]+", HttpMethod.GET.name()),
+//                        new RegexRequestMatcher("/home/delete\\?fileId=[0-9]+",HttpMethod.GET.name()),
+//                        new RegexRequestMatcher("/result\\?status=[0-9]+",HttpMethod.GET.name())
                         ).authenticated()
                 );
 

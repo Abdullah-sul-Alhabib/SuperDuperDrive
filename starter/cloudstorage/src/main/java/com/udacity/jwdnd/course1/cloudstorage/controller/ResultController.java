@@ -21,7 +21,6 @@ public class ResultController {
     @GetMapping
     public String getResult(@RequestParam("status") int statusCode, Model model){
         model.addAttribute("statusMessage", StatusCodes.getStatusMessageFromNumber(statusCode).getStatusMessage());
-        // TODO: update result page to handle the logic of this attribute.
         return "result";
     }
 }

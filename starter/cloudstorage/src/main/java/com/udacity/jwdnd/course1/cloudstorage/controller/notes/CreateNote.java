@@ -22,8 +22,8 @@ public class CreateNote {
     }
 
     @PostMapping
-    public String postNote(Model model, Note note)
-    {
+    public String postNote(Model model, Note note){
+        try{
         if (note.getNoteId() > 0)
         {
             return "forward:/note/update";
@@ -33,7 +33,7 @@ public class CreateNote {
                         .getContext()
                         .getAuthentication()
                         .getName());
-        try {
+
             noteService.addNote(note, currentUser.getUserId());
             return "redirect:/result?status=0";
         }catch (Error e)

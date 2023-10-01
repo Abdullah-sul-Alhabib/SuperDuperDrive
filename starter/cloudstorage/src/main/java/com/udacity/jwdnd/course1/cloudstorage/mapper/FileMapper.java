@@ -44,8 +44,8 @@ public interface FileMapper {
     @Select("SELECT * FROM FILES WHERE fileid = #{filedId}")
     File getOneFileInfo(Integer fileId);
 
-    @Select("SELECT filedata FROM FILES WHERE fileId = #{filedId}")
-    FileDataEntity getFileData(Integer fileId);
+    @Select("SELECT fileid FROM FILES WHERE ( filename, contenttype, filesize, userid) = ( #{fileName}, #{contentType}, #{fileSize}, #{userId})")
+    Integer getFileId(FileInfoEntity fileInfoEntity);
 
     /**
      * Insert file, return fileId.

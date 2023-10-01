@@ -35,4 +35,7 @@ public class NoteService {
         return noteMapper.getAllNotes(userId);
     }
 
+    public Note getNoteById(Integer noteId) {
+        return noteMapper.getOneNote(noteId);
+    }
 }

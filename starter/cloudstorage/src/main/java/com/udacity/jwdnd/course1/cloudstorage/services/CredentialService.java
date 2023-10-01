@@ -64,4 +64,8 @@ public class CredentialService {
 
         return credList;
     }
+
+    public Credential getCredentialById(Integer credentialId) {
+        return credentialMapper.getCredentials(credentialId);
+    }
 }

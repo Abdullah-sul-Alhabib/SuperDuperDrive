@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum StatusCodes {
+    UNKNOWN_ERROR(-1,"Unknown Error"),
     SUCCESS(0, "Operation successful"),
-    DATABASE(1, "A database error has occurred."),
+    FILE_CREATION_ERROR(1, "Error during file upload"),
     DUPLICATE_FILE(2, "This file name already exists."),
     UNAUTHORIZED(3,"File inaccessible"),
     NOTE_CREATION_ERROR(4, "Error during creating note."),
-    NOTE_UPDATE_ERROR(5,"Errur during note update.");
+    NOTE_UPDATE_ERROR(5,"Error during note update."),
+    NO_FILE_FOUND(6,"No file was selected"),
+    FILE_DELETION_ERROR(7,"File deletion Error");
 
     private static Map<Integer, StatusCodes> statusCodeByStatusNumber = new HashMap<>();
 

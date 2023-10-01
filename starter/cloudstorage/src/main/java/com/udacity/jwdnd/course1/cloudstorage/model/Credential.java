@@ -134,7 +134,9 @@ public class Credential {
      *
      * @param userid the userid
      */
-    public void setUserid(Integer userid) {
+    public void setUserId(Integer userid) {
         this.userid = userid;
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 
 import com.udacity.jwdnd.course1.cloudstorage.entity.FileInfoEntity;
+import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
@@ -62,9 +63,10 @@ public class HomeController {
         List<Note> noteList= noteService.getNoteList(currentUser.getUserId());
         model.addAttribute("storedNotes", noteList);
 
-        //fill the credential tab
+        //return list of credentials uploaded by the user
+        List<Credential> credentialList= credentialService.getCredentialList(currentUser.getUserId());
+        model.addAttribute("storedCredentials", credentialList);
 
-        //return note list
 
         return "home";
     }

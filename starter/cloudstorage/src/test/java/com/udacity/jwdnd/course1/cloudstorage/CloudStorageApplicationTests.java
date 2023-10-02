@@ -89,8 +89,8 @@ class CloudStorageApplicationTests {
 		// You may have to modify the element "success-msg" and the sign-up 
 		// success message below depening on the rest of your code.
 		*/
-		// Code logic redirects successful signups automatically, Check if we have been redirected to the log in page.
-		Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());	}
+		// Edited, Code logic redirects successful signups automatically, Check if we have been redirected to the log in page.
+		Assertions.assertEquals("http://localhost:" + this.port + "/login?success", driver.getCurrentUrl());	}
 
 	
 	
@@ -139,7 +139,8 @@ class CloudStorageApplicationTests {
 		doMockSignUp("Redirection","Test","RT","123");
 		
 		// Check if we have been redirected to the log in page.
-		Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
+		// I have added request param ?success due to code logic.
+		Assertions.assertEquals("http://localhost:" + this.port + "/login?success", driver.getCurrentUrl());
 	}
 
 	/**

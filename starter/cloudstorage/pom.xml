@@ -82,7 +82,7 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-<!--         guava was needed for tests to run to solve java.lang.NoSuchMethodError-->
+<!--         guava was needed for tests to run to solve java.lang.NoSuchMethodError for chrome drivers-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

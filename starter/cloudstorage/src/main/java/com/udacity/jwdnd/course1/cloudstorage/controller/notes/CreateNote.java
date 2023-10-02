@@ -24,7 +24,7 @@ public class CreateNote {
     @PostMapping
     public String postNote(Model model, Note note) {
         try {
-            if (note.getNoteId() > 0) {
+            if (note.getNoteId() != null) {
                 return "forward:/note/update";
             }
             User currentUser = userService.getUser(

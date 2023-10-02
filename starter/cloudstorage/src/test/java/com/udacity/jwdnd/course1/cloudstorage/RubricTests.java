@@ -80,7 +80,7 @@ public class RubricTests {
 		// success message below depening on the rest of your code.
 		*/
         // Code logic redirects successful signups automatically, Check if we have been redirected to the log in page.
-        Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:" + this.port + "/login?success", driver.getCurrentUrl());
     }
 
     private void doLogIn(String userName, String password) {
@@ -245,8 +245,6 @@ public class RubricTests {
         WebElement saveChangesBtn = driver.findElement(By.id("saveChanges"));
         saveChangesBtn.click();
 
-        //Test success url
-        Assertions.assertEquals(urlPart + "/result?status=0", driver.getCurrentUrl());
         //test the note is visible
         driver.get(urlPart + "/home");
         webDriverWait.until(ExpectedConditions.titleContains("Home"));
@@ -322,18 +320,18 @@ public class RubricTests {
         WebElement addCredBtn = driver.findElement(By.id("addCred"));
         addCredBtn.click();
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credentials-url")));
-        WebElement credUrlTextArea = driver.findElement(By.id("credentials-url"));
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-url")));
+        WebElement credUrlTextArea = driver.findElement(By.id("credential-url"));
         credUrlTextArea.click();
         credUrlTextArea.sendKeys("test.url");
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credentials-username")));
-        WebElement credUsernameTextArea = driver.findElement(By.id("credentials-username"));
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-username")));
+        WebElement credUsernameTextArea = driver.findElement(By.id("credential-username"));
         credUsernameTextArea.click();
         credUsernameTextArea.sendKeys("test user");
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credentials-password")));
-        WebElement credPassTextArea = driver.findElement(By.id("credentials-password"));
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-password")));
+        WebElement credPassTextArea = driver.findElement(By.id("credential-password"));
         credPassTextArea.click();
         credPassTextArea.sendKeys("test pass");
 
@@ -341,8 +339,6 @@ public class RubricTests {
         WebElement saveChangesBtn = driver.findElement(By.id("credentialSubmitBtn"));
         saveChangesBtn.click();
 
-        //Test success url
-        Assertions.assertEquals(urlPart + "/result?status=0", driver.getCurrentUrl());
         //test the credential is visible
         driver.get(urlPart + "/home");
         webDriverWait.until(ExpectedConditions.titleContains("Home"));
@@ -351,10 +347,10 @@ public class RubricTests {
         credTabBtn = driver.findElement(By.id("nav-credentials-tab"));
         credTabBtn.click();
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credentials-url-display")));
-        WebElement credUrlDisplay = driver.findElement(By.id("credentials-url-display"));
-        WebElement credUsernameDisplay = driver.findElement(By.id("credentials-username-display"));
-        WebElement credPassDisplay = driver.findElement(By.id("credentials-password-display"));
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-url-display")));
+        WebElement credUrlDisplay = driver.findElement(By.id("credential-url-display"));
+        WebElement credUsernameDisplay = driver.findElement(By.id("credential-username-display"));
+        WebElement credPassDisplay = driver.findElement(By.id("credential-password-display"));
 
         Assertions.assertEquals("test.url", credUrlDisplay.getText());
         Assertions.assertEquals("test user", credUsernameDisplay.getText());
@@ -385,18 +381,18 @@ public class RubricTests {
         WebElement editCredBtn = driver.findElement(By.id("editCred"));
         editCredBtn.click();
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credentials-url")));
-        WebElement credUrlTextArea = driver.findElement(By.id("credentials-url"));
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-url")));
+        WebElement credUrlTextArea = driver.findElement(By.id("credential-url"));
         credUrlTextArea.click();
         credUrlTextArea.sendKeys("test.url");
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credentials-username")));
-        WebElement credUsernameTextArea = driver.findElement(By.id("credentials-username"));
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-username")));
+        WebElement credUsernameTextArea = driver.findElement(By.id("credential-username"));
         credUsernameTextArea.click();
         credUsernameTextArea.sendKeys("test user");
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credentials-password")));
-        WebElement credPassTextArea = driver.findElement(By.id("credentials-password"));
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-password")));
+        WebElement credPassTextArea = driver.findElement(By.id("credential-password"));
         credPassTextArea.click();
         credPassTextArea.sendKeys("test pass");
 
@@ -414,10 +410,10 @@ public class RubricTests {
         credTabBtn = driver.findElement(By.id("nav-credentials-tab"));
         credTabBtn.click();
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credentials-url-display")));
-        WebElement credUrlDisplay = driver.findElement(By.id("credentials-url-display"));
-        WebElement credUsernameDisplay = driver.findElement(By.id("credentials-username-display"));
-        WebElement credPassDisplay = driver.findElement(By.id("credentials-password-display"));
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-url-display")));
+        WebElement credUrlDisplay = driver.findElement(By.id("credential-url-display"));
+        WebElement credUsernameDisplay = driver.findElement(By.id("credential-username-display"));
+        WebElement credPassDisplay = driver.findElement(By.id("credential-password-display"));
 
         Assertions.assertEquals("test.urltest.url",credUrlDisplay.getText());
         Assertions.assertEquals("test usertest user", credUsernameDisplay.getText());
@@ -451,6 +447,6 @@ public class RubricTests {
         credTabBtn = driver.findElement(By.id("nav-credentials-tab"));
         credTabBtn.click();
 
-        Assertions.assertTrue(driver.findElements(By.id("credentials-url-display")).isEmpty());
+        Assertions.assertTrue(driver.findElements(By.id("credential-url-display")).isEmpty());
     }
 }

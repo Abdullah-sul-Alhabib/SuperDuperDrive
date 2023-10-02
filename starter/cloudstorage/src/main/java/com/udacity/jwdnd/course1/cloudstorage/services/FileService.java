@@ -69,15 +69,15 @@ public class FileService {
         if (fileNamesForUser.contains(file.getOriginalFilename())) {
             throw new FileAlreadyExistsException("2");
         }
-        //call file factory to get type File instead of multiPartFile.
+        //Use these functions to get type File instead of multiPartFile.
         FileInfoEntity fileInfoHolder = getFileInfoFromMultipartFile(file, userId);
         FileDataEntity fileDataHolder = getFileDataFromMultipartFile(file, userId);
 
         fileMapper.insert(fileInfoHolder);
         // another query to get file ID (return value of mapper insert is number of rows, not generated ID)
         int fileId = fileMapper.getFileId(fileInfoHolder);
-        //Use fileId to upload the file separately,
-        // this is done in a separate query in case we want to handle special logic for file uploading here.
+        // Use fileId to upload the file separately,
+        // this is done in a separate query because MyBatis can not insert Blob type directly.
         fileMapper.updateFileData(fileDataHolder.getFileData(), fileId);
     }
 

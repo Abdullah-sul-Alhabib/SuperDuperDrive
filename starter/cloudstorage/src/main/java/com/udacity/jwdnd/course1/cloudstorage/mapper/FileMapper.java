@@ -36,6 +36,11 @@ public interface FileMapper {
     @Select("SELECT * FROM FILES WHERE fileid = #{filedId}")
     File getOneFileInfo(Integer fileId);
 
+    /**
+     * get a file ID by entering all other data.
+     * @param fileInfoEntity
+     * @return Integer file ID
+     */
     @Select("SELECT fileid FROM FILES WHERE ( filename, contenttype, filesize, userid) = ( #{fileName}, #{contentType}, #{fileSize}, #{userId})")
     Integer getFileId(FileInfoEntity fileInfoEntity);
 
@@ -43,15 +48,23 @@ public interface FileMapper {
      * Insert file, return fileId.
      *
      * @param file file to insert.
-     * @return newly generated fileid.
      */
     @Insert("INSERT INTO FILES ( filename, contenttype, filesize, userid) VALUES( #{fileName}, #{contentType}, #{fileSize}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "fileId")
-    int insert(FileInfoEntity file);
+    void insert(FileInfoEntity file);
 
+    /**
+     * insert file blob into its row
+     * @param fileData
+     * @param fileId
+     */
     @Update("UPDATE FILES SET filedata= #{fileData} WHERE fileId = #{fileId}")
     void updateFileData(Blob fileData, int fileId);
 
+    /**
+     * delete a file
+     * @param fileId
+     */
     @Delete("DELETE FROM FILES WHERE fileId = #{fileId}")
     void deleteFile(int fileId);
 

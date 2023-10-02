@@ -23,7 +23,7 @@ public class CreateCredential {
 
     @PostMapping
     public String postCredential(Model model, Credential credential) {
-        if (credential.getCredentialId() > 0) {
+        if (credential.getCredentialId() != null) {
             return "forward:/credential/update";
         }
         User currentUser = userService.getUser(

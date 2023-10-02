@@ -46,13 +46,6 @@ public class UploadController {
         } catch (Error e) {
             return "redirect:/result?status=1";
         }
-        //receive notes and tie them to user
-
-        //receive credentials and tie them to user
-
-        //if/else condition using isUploadSuccessful flag,
-        // then redirect to result with the proper result parameters,
-
         return "redirect:/result?status=0";
     }
 }

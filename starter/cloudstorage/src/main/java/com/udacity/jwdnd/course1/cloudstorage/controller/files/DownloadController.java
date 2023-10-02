@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/file/download")
@@ -33,6 +34,14 @@ public class DownloadController {
         this.userService = userService;
     }
 
+    /**
+     * Credit for helping me:
+     * <a href="https://stackoverflow.com/a/35683261/22644519">This stackOverflow answer</a>
+     * @param fileId
+     * @return response entity that starts file download
+     * @throws SQLException
+     * @throws IOException
+     */
     @GetMapping
     @ResponseBody
     public ResponseEntity<InputStreamResource> downloadFile(@RequestParam("fileid") int fileId) throws SQLException, IOException {
@@ -45,7 +54,7 @@ public class DownloadController {
                         .getAuthentication()
                         .getName());
 
-        if (currentUser.getUserId() != file.getUserId()) {
+        if (!Objects.equals(currentUser.getUserId(), file.getUserId())) {
             headers.add("Location", "/result?status=3");
             return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
         }

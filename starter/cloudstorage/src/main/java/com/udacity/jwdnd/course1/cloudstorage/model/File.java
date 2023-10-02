@@ -1,10 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
-import org.apache.ibatis.javassist.bytecode.ByteArray;
-
-import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
-import java.sql.SQLException;
 
 /**
  * File model to match the FILES table in the schema.

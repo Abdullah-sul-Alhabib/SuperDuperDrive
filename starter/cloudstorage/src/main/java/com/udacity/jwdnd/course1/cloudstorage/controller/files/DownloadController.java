@@ -7,24 +7,18 @@ import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 @Controller
@@ -32,7 +26,7 @@ import java.sql.SQLException;
 public class DownloadController {
 
     private final UserService userService;
-    private FileService fileService;
+    private final FileService fileService;
 
     public DownloadController(FileService fileService, UserService userService) {
         this.fileService = fileService;
@@ -51,8 +45,7 @@ public class DownloadController {
                         .getAuthentication()
                         .getName());
 
-        if (currentUser.getUserId() != file.getUserId())
-        {
+        if (currentUser.getUserId() != file.getUserId()) {
             headers.add("Location", "/result?status=3");
             return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
         }

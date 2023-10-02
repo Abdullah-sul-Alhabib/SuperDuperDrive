@@ -19,7 +19,7 @@ public class ResultController {
      * @return the string
      */
     @GetMapping
-    public String getResult(@RequestParam("status") int statusCode, Model model){
+    public String getResult(@RequestParam("status") int statusCode, Model model) {
         model.addAttribute("statusMessage", StatusCodes.getStatusMessageFromNumber(statusCode).getStatusMessage());
         return "result";
     }

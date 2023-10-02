@@ -12,9 +12,9 @@ import java.util.Base64;
  */
 @Service
 public class UserService {
-    private User user;
     private final UserMapper userMapper;
     private final HashService hashService;
+    private User user;
 
     /**
      * Instantiates a new User service.

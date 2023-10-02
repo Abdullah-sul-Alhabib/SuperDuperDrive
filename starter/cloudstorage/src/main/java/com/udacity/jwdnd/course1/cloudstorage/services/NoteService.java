@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Service
 public class NoteService {
-    private NoteMapper noteMapper;
+    private final NoteMapper noteMapper;
 
     public NoteService(NoteMapper noteMapper) {
         this.noteMapper = noteMapper;
@@ -23,15 +23,15 @@ public class NoteService {
         noteMapper.insertNote(note);
     }
 
-    public void updateNote(Note newNote){
+    public void updateNote(Note newNote) {
         noteMapper.updateNote(newNote);
     }
 
-    public void deleteNote(Integer noteId){
+    public void deleteNote(Integer noteId) {
         noteMapper.deleteNote(noteId);
     }
 
-    public List<Note> getNoteList(Integer userId){
+    public List<Note> getNoteList(Integer userId) {
         return noteMapper.getAllNotes(userId);
     }
 

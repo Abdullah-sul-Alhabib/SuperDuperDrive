@@ -19,12 +19,11 @@ public class UpdateNote {
     }
 
     @PostMapping
-    public String postUpdateNote(Model model, Note note){
-        try{
+    public String postUpdateNote(Model model, Note note) {
+        try {
             noteService.updateNote(note);
             return "redirect:/result?status=0";
-        } catch (Error e)
-        {
+        } catch (Error e) {
             return "redirect:/result?status=5";
         }
 

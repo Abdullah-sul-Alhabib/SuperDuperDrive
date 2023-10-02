@@ -3,7 +3,6 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.entity.FileInfoEntity;
 import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
-import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
@@ -13,11 +12,9 @@ import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +24,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/home")
 public class HomeController {
-    private UserService userService;
-    private FileService fileService;
-    private NoteService noteService;
-    private CredentialService credentialService;
+    private final UserService userService;
+    private final FileService fileService;
+    private final NoteService noteService;
+    private final CredentialService credentialService;
 
     public HomeController(UserService userService, FileService fileService,
                           NoteService noteService, CredentialService credentialService) {
@@ -46,25 +43,25 @@ public class HomeController {
      * @return home
      */
     @GetMapping
-    public String getHome( Model model){
+    public String getHome(Model model) {
         //get the current logged-in user,
         // this project does not contain cache so this is suboptimal,
         // because every request to home will send an SQL query.
         User currentUser = userService.getUser(
                 SecurityContextHolder
-                .getContext()
-                .getAuthentication()
+                        .getContext()
+                        .getAuthentication()
                         .getName());
         //return list of file info uploaded by the user
         List<FileInfoEntity> fileList = new ArrayList<>(fileService.getFileList(currentUser.getUserId()));
-        model.addAttribute("storedFiles",fileList);
+        model.addAttribute("storedFiles", fileList);
 
         //return list of notes uploaded by the user
-        List<Note> noteList= noteService.getNoteList(currentUser.getUserId());
+        List<Note> noteList = noteService.getNoteList(currentUser.getUserId());
         model.addAttribute("storedNotes", noteList);
 
         //return list of credentials uploaded by the user
-        List<Credential> credentialList= credentialService.getCredentialList(currentUser.getUserId());
+        List<Credential> credentialList = credentialService.getCredentialList(currentUser.getUserId());
         model.addAttribute("storedCredentials", credentialList);
 
 

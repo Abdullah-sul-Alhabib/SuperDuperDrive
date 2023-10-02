@@ -15,8 +15,8 @@ import java.util.ArrayList;
  */
 @Service
 public class AuthenticationService implements AuthenticationProvider {
-    private UserMapper userMapper;
-    private HashService hashService;
+    private final UserMapper userMapper;
+    private final HashService hashService;
 
     /**
      * Instantiates a new Authentication service.

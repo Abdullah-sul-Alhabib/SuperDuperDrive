@@ -17,7 +17,7 @@ import java.util.Objects;
 @RequestMapping("/file/delete")
 public class DeleteController {
     private final UserService userService;
-    private FileService fileService;
+    private final FileService fileService;
 
     public DeleteController(FileService fileService, UserService userService) {
         this.fileService = fileService;
@@ -25,7 +25,7 @@ public class DeleteController {
     }
 
     @GetMapping
-    public String deleteController(@RequestParam("fileid") int fileId){
+    public String deleteController(@RequestParam("fileid") int fileId) {
         try {
             File file = fileService.getFileById(fileId);
 
@@ -42,8 +42,7 @@ public class DeleteController {
 
             //status 0: success
             return "redirect:/result?status=0";
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             return "redirect:/result?status=1";
         }
 

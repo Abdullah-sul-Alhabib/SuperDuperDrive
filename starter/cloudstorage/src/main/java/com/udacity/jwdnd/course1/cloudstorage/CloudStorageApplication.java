@@ -17,7 +17,7 @@ public class CloudStorageApplication {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-		SpringApplication.run(CloudStorageApplication.class, args);
-	}
+        SpringApplication.run(CloudStorageApplication.class, args);
+    }
 
 }

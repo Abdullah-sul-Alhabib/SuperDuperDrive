@@ -4,7 +4,6 @@ import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.InvalidFileNameException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.sql.SQLException;
-import java.text.MessageFormat;
 
 @Controller
 @RequestMapping("/file/upload")
 public class UploadController {
-    private FileService fileService;
-    private UserService userService;
+    private final FileService fileService;
+    private final UserService userService;
 
     public UploadController(FileService fileService, UserService userService) {
         this.fileService = fileService;
@@ -33,20 +31,19 @@ public class UploadController {
     public String homePost(@RequestParam("fileUpload") MultipartFile uploadedFile, Model model) throws SQLException, IOException {
         try {
             boolean isUploadSuccessful, isNoteSuccessful, isCredentialSuccessful = false;
-        //receive file uploads and tie them to user
-        User currentUser = userService.getUser(
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getName());
+            //receive file uploads and tie them to user
+            User currentUser = userService.getUser(
+                    SecurityContextHolder
+                            .getContext()
+                            .getAuthentication()
+                            .getName());
 
             fileService.uploadFile(uploadedFile, currentUser.getUserId());
-        }catch (FileAlreadyExistsException e){
+        } catch (FileAlreadyExistsException e) {
             return "redirect:/result?status=2";
-        }catch (FileUploadException e){
+        } catch (FileUploadException e) {
             return "redirect:/result?status=6";
-        }
-        catch (Error e){
+        } catch (Error e) {
             return "redirect:/result?status=1";
         }
         //receive notes and tie them to user

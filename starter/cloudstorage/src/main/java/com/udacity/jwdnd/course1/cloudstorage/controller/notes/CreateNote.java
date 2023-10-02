@@ -22,22 +22,20 @@ public class CreateNote {
     }
 
     @PostMapping
-    public String postNote(Model model, Note note){
-        try{
-        if (note.getNoteId() > 0)
-        {
-            return "forward:/note/update";
-        }
-        User currentUser = userService.getUser(
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getName());
+    public String postNote(Model model, Note note) {
+        try {
+            if (note.getNoteId() > 0) {
+                return "forward:/note/update";
+            }
+            User currentUser = userService.getUser(
+                    SecurityContextHolder
+                            .getContext()
+                            .getAuthentication()
+                            .getName());
 
             noteService.addNote(note, currentUser.getUserId());
             return "redirect:/result?status=0";
-        }catch (Error e)
-        {
+        } catch (Error e) {
             return "redirect:/result?status=4";
         }
 

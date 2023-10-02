@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RegexRequestMatcher;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Security config class, configures logins, signups and permissions.
@@ -34,33 +32,33 @@ public class SecurityConfig {
                         .requestMatchers(
                                 new AntPathRequestMatcher("/login"),
                                 new AntPathRequestMatcher("/signup")
-                                ).permitAll()
+                        ).permitAll()
                 )
 
-        //Assign /login as the login page, which means any unauthorized request will be redirected to this one,
-        //then redirect successful logins to /home.
-                .formLogin( form -> form
+                //Assign /login as the login page, which means any unauthorized request will be redirected to this one,
+                //then redirect successful logins to /home.
+                .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
                 )
 
-        //Handle logouts
+                //Handle logouts
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout/**", HttpMethod.GET.name()))
                         .logoutSuccessUrl("/login?logout").permitAll()
                 )
 
-        //Allow only authorized users to /home and /result
+                //Allow only authorized users to /home and /result
                 .authorizeHttpRequests((authz) -> authz
-                .requestMatchers(
-                        new AntPathRequestMatcher("/home/**"),
-                        new AntPathRequestMatcher("/result"),
-                        new AntPathRequestMatcher("/error"),
-                        new AntPathRequestMatcher("/file/**"),
-                        new AntPathRequestMatcher("/favicon.ico"),
-                        new AntPathRequestMatcher("/note/**"),
-                        new AntPathRequestMatcher("/credential/**"),
-                        new AntPathRequestMatcher("/errors")
+                        .requestMatchers(
+                                new AntPathRequestMatcher("/home/**"),
+                                new AntPathRequestMatcher("/result"),
+                                new AntPathRequestMatcher("/error"),
+                                new AntPathRequestMatcher("/file/**"),
+                                new AntPathRequestMatcher("/favicon.ico"),
+                                new AntPathRequestMatcher("/note/**"),
+                                new AntPathRequestMatcher("/credential/**"),
+                                new AntPathRequestMatcher("/errors")
                         ).authenticated()
                 );
 

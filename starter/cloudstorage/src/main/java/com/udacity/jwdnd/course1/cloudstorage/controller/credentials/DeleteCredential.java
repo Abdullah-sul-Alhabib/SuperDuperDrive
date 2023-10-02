@@ -2,7 +2,6 @@ package com.udacity.jwdnd.course1.cloudstorage.controller.credentials;
 
 import com.udacity.jwdnd.course1.cloudstorage.mapper.CredentialMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
-import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
@@ -28,7 +27,7 @@ public class DeleteCredential {
     }
 
     @GetMapping
-    public String deleteCredential(@RequestParam("credid") Integer credentialId){
+    public String deleteCredential(@RequestParam("credid") Integer credentialId) {
         Credential credential = credentialService.getCredentialById(credentialId);
 
         User currentUser = userService.getUser(
@@ -37,15 +36,13 @@ public class DeleteCredential {
                         .getAuthentication()
                         .getName());
 
-        if (!Objects.equals(currentUser.getUserId(), credential.getUserid()))
-        {
+        if (!Objects.equals(currentUser.getUserId(), credential.getUserid())) {
             return "redirect:/result?status=3";
         }
-        try{
+        try {
             credentialService.deleteCredential(credentialId);
             return "redirect:/result?status=0";
-        }catch (Error e)
-        {
+        } catch (Error e) {
             return "redirect:/result?status=6";
         }
     }

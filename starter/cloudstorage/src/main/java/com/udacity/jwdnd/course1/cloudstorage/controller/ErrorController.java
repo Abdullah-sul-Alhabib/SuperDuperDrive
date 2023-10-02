@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ErrorController {
 
     @GetMapping
-    public String errorRedirect(){
+    public String errorRedirect() {
         return "redirect:/result?status=-1";
     }
+
     @PostMapping
-    public String errorPostRedirect(){
+    public String errorPostRedirect() {
         return "redirect:/result?status=-1";
     }
 }

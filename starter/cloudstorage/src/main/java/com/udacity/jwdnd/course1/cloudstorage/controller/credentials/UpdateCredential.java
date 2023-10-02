@@ -17,12 +17,11 @@ public class UpdateCredential {
     }
 
     @PostMapping
-    public String postUpdateCredential(Model model, Credential credential){
-        try{
+    public String postUpdateCredential(Model model, Credential credential) {
+        try {
             credentialService.updateCredential(credential);
             return "redirect:/result?status=0";
-        } catch (Error e)
-        {
+        } catch (Error e) {
             return "redirect:/result?status=5";
         }
 

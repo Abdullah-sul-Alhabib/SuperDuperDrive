@@ -4,18 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum StatusCodes {
-    UNKNOWN_ERROR(-1,"Unknown Error"),
+    UNKNOWN_ERROR(-1, "Unknown Error"),
     SUCCESS(0, "Operation successful"),
     FILE_CREATION_ERROR(1, "Error during file upload"),
     DUPLICATE_FILE(2, "This file name already exists."),
-    UNAUTHORIZED(3,"File inaccessible"),
+    UNAUTHORIZED(3, "File inaccessible"),
     NOTE_CREATION_ERROR(4, "Error during creating note."),
-    NOTE_UPDATE_ERROR(5,"Error during note update."),
-    NO_FILE_FOUND(6,"No file was selected"),
-    FILE_DELETION_ERROR(7,"File deletion Error"),
-    FILE_TOO_LARGE(8,"File size too large");
+    NOTE_UPDATE_ERROR(5, "Error during note update."),
+    NO_FILE_FOUND(6, "No file was selected"),
+    FILE_DELETION_ERROR(7, "File deletion Error"),
+    FILE_TOO_LARGE(8, "File size too large");
 
-    private static Map<Integer, StatusCodes> statusCodeByStatusNumber = new HashMap<>();
+    private static final Map<Integer, StatusCodes> statusCodeByStatusNumber = new HashMap<>();
 
     static {
         for (StatusCodes statusCode : StatusCodes.values()) {
@@ -35,6 +35,11 @@ public enum StatusCodes {
         return statusCodeByStatusNumber.get(statusNumber);
     }
 
-    public int getStatusCode() { return statusCode; }
-    public String getStatusMessage() { return message; }
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public String getStatusMessage() {
+        return message;
+    }
 }

@@ -22,10 +22,8 @@ public class CreateCredential {
     }
 
     @PostMapping
-    public String postCredential(Model model, Credential credential)
-    {
-        if (credential.getCredentialId() > 0)
-        {
+    public String postCredential(Model model, Credential credential) {
+        if (credential.getCredentialId() > 0) {
             return "forward:/credential/update";
         }
         User currentUser = userService.getUser(
@@ -36,8 +34,7 @@ public class CreateCredential {
         try {
             credentialService.addCredential(credential, currentUser.getUserId());
             return "redirect:/result?status=0";
-        }catch (Error e)
-        {
+        } catch (Error e) {
             return "redirect:/result?status=4";
         }
 

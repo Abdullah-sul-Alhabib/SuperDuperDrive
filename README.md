@@ -1,4 +1,15 @@
 # Super*Duper*Drive Cloud Storage
+## Credits for help resources:
+(I did not attribute any resources from Udacity since this whole project would not exist without the JWDND course).
+1. Documentations from spring, spring security, thymeleaf, mybatis, junit, selenium and h2.
+2. This project used Intellij IDE
+3. Baeldung articles were of great help in assisting me understand spring boot further.
+4. Specific resources were attributed within javadocs, such as stack overflow answer.
+
+Remainder of this document was written in the starter project by Udacity.
+
+Thank you.
+# Super*Duper*Drive Cloud Storage
 You have been hired by Super*Duper*Drive, which is a brand new company aiming to make a dent in the Cloud Storage market and is already facing stiff competition from rivals like Google Drive and Dropbox. That hasn't dampened their spirits at all, however. They want to include personal information management features in their application to differentiate them from the competition, and the minimum viable product includes three user-facing features:
 
 1. **Simple File Storage:** Upload/download/remove files

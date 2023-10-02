@@ -12,7 +12,8 @@ public enum StatusCodes {
     NOTE_CREATION_ERROR(4, "Error during creating note."),
     NOTE_UPDATE_ERROR(5,"Error during note update."),
     NO_FILE_FOUND(6,"No file was selected"),
-    FILE_DELETION_ERROR(7,"File deletion Error");
+    FILE_DELETION_ERROR(7,"File deletion Error"),
+    FILE_TOO_LARGE(8,"File size too large");
 
     private static Map<Integer, StatusCodes> statusCodeByStatusNumber = new HashMap<>();
 

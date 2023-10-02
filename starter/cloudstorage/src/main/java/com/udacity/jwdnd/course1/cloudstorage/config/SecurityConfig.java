@@ -59,7 +59,8 @@ public class SecurityConfig {
                         new AntPathRequestMatcher("/file/**"),
                         new AntPathRequestMatcher("/favicon.ico"),
                         new AntPathRequestMatcher("/note/**"),
-                        new AntPathRequestMatcher("/credential/**")
+                        new AntPathRequestMatcher("/credential/**"),
+                        new AntPathRequestMatcher("/errors")
                         ).authenticated()
                 );
 

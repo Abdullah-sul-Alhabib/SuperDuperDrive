@@ -10,14 +10,14 @@
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container">
             <div id="logoutDiv">
-                    <a th:href="@{/logout}"  method="post" class="btn btn-secondary float-right">Logout</a>
+                    <a th:href="@{/logout}"  method="post" class="btn btn-secondary float-right" id="logout">Logout</a>
             </div>
             <div id="contentDiv" style="clear: right;">
                 <nav style="clear: right;">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-files-tab" data-toggle="tab" href="#nav-files" role="tab" aria-controls="nav-files" aria-selected="true">Files</a>
                         <a class="nav-item nav-link" id="nav-notes-tab" data-toggle="tab" href="#nav-notes" role="tab" aria-controls="nav-notes" aria-selected="false">Notes</a>
-                        <a class="nav-item nav-link" id="nav-Credentials-tab" data-toggle="tab" href="#nav-storedCredentials" role="tab" aria-controls="nav-storedCredentials" aria-selected="false">Credentials</a>
+                        <a class="nav-item nav-link" id="nav-credentials-tab" data-toggle="tab" href="#nav-storedCredentials" role="tab" aria-controls="nav-storedCredentials" aria-selected="false">Credentials</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -74,11 +74,11 @@
                                 <tbody>
                                     <tr th:each="n: ${storedNotes}">
                                         <td>
-                                            <button name = "edit" th:onclick="javascript:showNoteModal([[${n}]])" type="button" class="btn btn-success">Edit</button>
-                                            <a name = "delete" th:href="@{|/note/delete?noteId=${n.noteId}|}" class="btn btn-danger">Delete</a>
+                                            <button name = "edit" th:onclick="javascript:showNoteModal([[${n}]])" type="button" class="btn btn-success" id="editNote">Edit</button>
+                                            <a name = "delete" th:href="@{|/note/delete?noteId=${n.noteId}|}" class="btn btn-danger" id="deleteNote">Delete</a>
                                         </td>
-                                        <th scope="row" th:text="${n.noteTitle}"></th>
-                                        <td th:text="${n.noteDescription}"></td>
+                                        <th scope="row" th:text="${n.noteTitle}" id="note-title-display"></th>
+                                        <td th:text="${n.noteDescription}" id="note-description-display"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -133,12 +133,12 @@
                                 <tbody>
                                 <tr th:each="cred : ${storedCredentials}">
                                     <td>
-                                        <button type="button" th:onclick="javascript:showCredentialModal([[${cred}]])" class="btn btn-success">Edit</button>
-                                        <a class="btn btn-danger" th:href="@{|/credential/delete?credid=${cred.credentialId}|}">Delete</a>
+                                        <button type="button" th:onclick="javascript:showCredentialModal([[${cred}]])" class="btn btn-success" id="editCred">Edit</button>
+                                        <a class="btn btn-danger" th:href="@{|/credential/delete?credid=${cred.credentialId}|}" id="deleteCred">Delete</a>
                                     </td>
-                                    <th scope="row" th:text="${cred.url}">Example Credential URL</th>
-                                    <td th:text="${cred.username}">Example Credential Username</td>
-                                    <td th:text="${cred.password}">Example Credential Password</td>
+                                    <th scope="row" th:text="${cred.url}" id="credentials-url-display">Example Credential URL</th>
+                                    <td th:text="${cred.username}" id="credentials-username-display">Example Credential Username</td>
+                                    <td th:text="${cred.password}" id="credentials-password-display">Example Credential Password</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -173,7 +173,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
+                                        <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();" id="credentialSubmitBtn">Save changes</button>
                                     </div>
                                 </div>
                             </div>
